@@ -42,6 +42,7 @@ import javax.swing.SwingUtilities;
  * Main window of the Anagram Game application.
  */
 public class Anagrams extends JFrame {
+	
 
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
@@ -77,6 +78,7 @@ public class Anagrams extends JFrame {
 
     private int wordIdx = 0;
     private WordLibrary wordLibrary;
+    public int level;
 
     /** Creates new form Anagrams */
     public Anagrams() {
@@ -84,7 +86,7 @@ public class Anagrams extends JFrame {
         
         initComponents();
         getRootPane().setDefaultButton(guessButton);
-        scrambledWord.setText(wordLibrary.getScrambledWord(wordIdx));
+        scrambledWord.setText(wordLibrary.getScrambledWord(wordIdx,level));
         pack();
         guessedWord.requestFocusInWindow();
         // Center in the screen
@@ -213,11 +215,13 @@ public class Anagrams extends JFrame {
         mainPanel.add(levelLabel, gridBagConstraints);
 
         selectLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Level 1", "Level 2", "Level 3" }));
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         mainPanel.add(selectLevel, gridBagConstraints);
+        
 
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -255,9 +259,9 @@ public class Anagrams extends JFrame {
 
     private void nextTrialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTrialActionPerformed
         wordIdx = (wordIdx + 1) % wordLibrary.getSize();
-
+        level = selectLevel.getSelectedIndex();
         feedbackLabel.setText(" ");
-        scrambledWord.setText(wordLibrary.getScrambledWord(wordIdx));
+        scrambledWord.setText(wordLibrary.getScrambledWord(wordIdx,level));
         guessedWord.setText("");
         getRootPane().setDefaultButton(guessButton);
 
